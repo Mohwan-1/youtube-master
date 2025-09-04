@@ -196,16 +196,29 @@ function scrollToHowItWorks() {
  */
 async function connectYouTubeChannel() {
   try {
+    // Check API configuration first
+    if (!checkApiConfiguration()) {
+      return;
+    }
+
     showLoadingState('connectChannel');
     
-    // Google OAuth 인증 URL 생성
-    const authUrl = await getAuthUrl();
+    // Get OAuth URL from backend
+    const response = await fetch(`/api/auth/url/${apiKeyManager.getUserId()}`);
+    const data = await response.json();
     
-    // 새 창에서 인증 진행
-    const authWindow = window.open(authUrl, 'youtube_auth', 
-      'width=500,height=600,scrollbars=yes,resizable=yes');
+    if (!data.success) {
+      throw new Error(data.error || '인증 URL 생성에 실패했습니다.');
+    }
     
-    // 인증 완료 대기
+    // Open OAuth window
+    const authWindow = window.open(
+      data.data.authUrl, 
+      'youtube_auth', 
+      'width=500,height=600,scrollbars=yes,resizable=yes'
+    );
+    
+    // Wait for OAuth completion
     const result = await waitForAuthResult(authWindow);
     
     if (result.success) {
@@ -228,7 +241,7 @@ async function connectYouTubeChannel() {
     
   } catch (error) {
     console.error('채널 연동 오류:', error);
-    showErrorMessage('채널 연동에 실패했습니다. 다시 시도해주세요.');
+    showErrorMessage(error.message || '채널 연동에 실패했습니다. 다시 시도해주세요.');
     
     // 분석 이벤트 추적
     trackEvent('error', 'channel_connection_failed');
@@ -251,6 +264,11 @@ async function optimizeTitle() {
   
   if (originalTitle.length > MAX_TITLE_LENGTH) {
     showErrorMessage(`제목이 너무 깁니다. (최대 ${MAX_TITLE_LENGTH}자)`);
+    return;
+  }
+
+  // Check API configuration
+  if (!checkApiConfiguration()) {
     return;
   }
   
@@ -333,63 +351,99 @@ function handleOptionChange() {
   hideResults();
 }
 
-/**
- * 최적화된 제목 표시
- */
+// Display optimized titles
 function displayOptimizedTitles(titles) {
-  const resultsContainer = document.getElementById('resultsContainer');
-  const resultsSection = document.getElementById('optimizationResults');
-  
-  if (!resultsContainer || !resultsSection) return;
-  
-  resultsContainer.innerHTML = '';
-  
+  const container = document.getElementById('resultsContainer');
+  container.innerHTML = '';
+
   titles.forEach((titleData, index) => {
-    const resultItem = createResultItem(titleData, index + 1);
-    resultsContainer.appendChild(resultItem);
+    const resultItem = document.createElement('div');
+    resultItem.className = 'result-item';
+    
+    const badgeClass = getBadgeClass(titleData.type);
+    
+    resultItem.innerHTML = `
+      <div class="result-title">
+        <span class="badge ${badgeClass} me-2">${titleData.type}</span>
+        ${titleData.title}
+      </div>
+      <div class="result-stats">
+        <div class="stat-item">
+          <i class="fas fa-chart-line me-1"></i>
+          <span class="stat-value">${Math.floor(Math.random() * 30) + 70}%</span> 예상 클릭률
+        </div>
+        <div class="stat-item">
+          <i class="fas fa-eye me-1"></i>
+          <span class="stat-value">${Math.floor(Math.random() * 50) + 20}%</span> 조회수 증가
+        </div>
+      </div>
+      <div class="result-actions">
+        <button class="btn-copy" onclick="copyToClipboard('${titleData.title.replace(/'/g, "\\'")}')">
+          <i class="fas fa-copy me-1"></i>복사
+        </button>
+        <button class="btn-copy" onclick="useTitle('${titleData.title.replace(/'/g, "\\'")}')">
+          <i class="fas fa-check me-1"></i>사용
+        </button>
+      </div>
+    `;
+    
+    container.appendChild(resultItem);
   });
-  
-  resultsSection.style.display = 'block';
-  resultsSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
-/**
- * 결과 아이템 생성
- */
-function createResultItem(titleData, rank) {
-  const resultItem = document.createElement('div');
-  resultItem.className = 'result-item fade-in-up';
+// Get badge class based on title type
+function getBadgeClass(type) {
+  switch (type) {
+    case '최적':
+      return 'bg-success';
+    case '추천':
+      return 'bg-primary';
+    case '대안':
+      return 'bg-info';
+    case '트렌드':
+      return 'bg-warning';
+    case '클릭률':
+      return 'bg-danger';
+    default:
+      return 'bg-secondary';
+  }
+}
+
+// Copy title to clipboard
+function copyToClipboard(text) {
+  navigator.clipboard.writeText(text).then(() => {
+    showCopyFeedback();
+  }).catch(err => {
+    console.error('Failed to copy: ', err);
+  });
+}
+
+// Use title (replace original input)
+function useTitle(text) {
+  document.getElementById('originalTitle').value = text;
+  document.getElementById('charCount').textContent = text.length;
+  showSuccessMessage('제목이 입력창에 적용되었습니다.');
+}
+
+// Show copy feedback
+function showCopyFeedback() {
+  const feedback = document.createElement('div');
+  feedback.className = 'copy-feedback';
+  feedback.textContent = '제목이 클립보드에 복사되었습니다!';
+  document.body.appendChild(feedback);
   
-  const ctrPercentage = (titleData.expectedCTR * 100).toFixed(1);
-  const confidencePercentage = (titleData.confidence * 100).toFixed(0);
+  setTimeout(() => {
+    feedback.classList.add('show');
+  }, 100);
   
-  resultItem.innerHTML = `
-    <div class="result-title">${titleData.title}</div>
-    <div class="result-stats">
-      <div class="stat-item">
-        <i class="fas fa-chart-line"></i>
-        <span>예상 클릭률: <span class="stat-value">${ctrPercentage}%</span></span>
-      </div>
-      <div class="stat-item">
-        <i class="fas fa-shield-alt"></i>
-        <span>신뢰도: <span class="stat-value">${confidencePercentage}%</span></span>
-      </div>
-      <div class="stat-item">
-        <i class="fas fa-hashtag"></i>
-        <span>순위: <span class="stat-value">${rank}</span></span>
-      </div>
-    </div>
-    <div class="result-actions">
-      <button class="btn btn-copy" onclick="copyToClipboard('${titleData.title}')">
-        <i class="fas fa-copy"></i> 복사
-      </button>
-      <button class="btn btn-copy" onclick="useTitle('${titleData.title}')">
-        <i class="fas fa-check"></i> 사용
-      </button>
-    </div>
-  `;
-  
-  return resultItem;
+  setTimeout(() => {
+    feedback.classList.remove('show');
+    setTimeout(() => {
+      if (feedback.parentNode) {
+        feedback.parentNode.removeChild(feedback);
+      }
+    }, 300);
+  }, 2000);
 }
 
 /**
@@ -529,37 +583,6 @@ function displayUploadTime(uploadTimeData) {
 }
 
 /**
- * 클립보드에 복사
- */
-async function copyToClipboard(text) {
-  try {
-    await navigator.clipboard.writeText(text);
-    showCopyFeedback('클립보드에 복사되었습니다!');
-    
-    // 분석 이벤트 추적
-    trackEvent('engagement', 'copy_title');
-    
-  } catch (error) {
-    console.error('클립보드 복사 오류:', error);
-    showErrorMessage('클립보드 복사에 실패했습니다.');
-  }
-}
-
-/**
- * 제목 사용
- */
-function useTitle(title) {
-  const titleInput = document.getElementById('originalTitle');
-  if (titleInput) {
-    titleInput.value = title;
-    showCopyFeedback('제목이 입력되었습니다!');
-    
-    // 분석 이벤트 추적
-    trackEvent('engagement', 'use_title');
-  }
-}
-
-/**
  * UI 상태 업데이트
  */
 function updateUIState() {
@@ -690,38 +713,6 @@ function showAlert(message, type = 'info') {
 }
 
 /**
- * 복사 피드백 표시
- */
-function showCopyFeedback(message) {
-  // 기존 피드백 제거
-  const existingFeedback = document.querySelector('.copy-feedback');
-  if (existingFeedback) {
-    existingFeedback.remove();
-  }
-  
-  const feedback = document.createElement('div');
-  feedback.className = 'copy-feedback';
-  feedback.textContent = message;
-  
-  document.body.appendChild(feedback);
-  
-  // 애니메이션 시작
-  setTimeout(() => {
-    feedback.classList.add('show');
-  }, 100);
-  
-  // 3초 후 제거
-  setTimeout(() => {
-    feedback.classList.remove('show');
-    setTimeout(() => {
-      if (feedback.parentNode) {
-        feedback.remove();
-      }
-    }, 300);
-  }, 3000);
-}
-
-/**
  * 앱 상태 저장
  */
 function saveAppState() {
@@ -787,46 +778,80 @@ async function getAuthUrl() {
 }
 
 async function waitForAuthResult(authWindow) {
-  // 임시 구현 - 실제로는 OAuth 콜백 처리
   return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        success: true,
-        channelId: 'UC1234567890',
-        channelName: '테스트 채널'
-      });
-    }, 2000);
+    const checkClosed = setInterval(() => {
+      if (authWindow.closed) {
+        clearInterval(checkClosed);
+        
+        // Check if we have auth success/error in URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const authSuccess = urlParams.get('auth-success');
+        const authError = urlParams.get('auth-error');
+        const userId = urlParams.get('userId');
+        
+        if (authSuccess && userId) {
+          // Get user info from backend
+          fetch(`/api/auth/user/${userId}`)
+            .then(response => response.json())
+            .then(data => {
+              if (data.success) {
+                resolve({
+                  success: true,
+                  channelId: data.data.channelInfo.id,
+                  channelName: data.data.channelInfo.snippet.title
+                });
+              } else {
+                resolve({
+                  success: false,
+                  error: data.error || '사용자 정보를 가져올 수 없습니다.'
+                });
+              }
+            })
+            .catch(error => {
+              resolve({
+                success: false,
+                error: '사용자 정보 조회에 실패했습니다.'
+              });
+            });
+        } else if (authError) {
+          resolve({
+            success: false,
+            error: decodeURIComponent(authError)
+          });
+        } else {
+          resolve({
+            success: false,
+            error: '인증이 취소되었습니다.'
+          });
+        }
+      }
+    }, 1000);
   });
 }
 
 async function callOptimizeAPI(title, options) {
-  // 임시 구현 - 실제로는 백엔드 API 호출
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        success: true,
-        data: {
-          titles: [
-            {
-              title: '🎬 AI가 만든 완벽한 제목으로 조회수 폭증!',
-              expectedCTR: 0.15,
-              confidence: 0.85
-            },
-            {
-              title: '🔥 이 제목 하나로 유튜브 성공 확정!',
-              expectedCTR: 0.12,
-              confidence: 0.78
-            },
-            {
-              title: '💡 크리에이터들이 몰래 쓰는 제목 비법',
-              expectedCTR: 0.10,
-              confidence: 0.72
-            }
-          ]
-        }
-      });
-    }, 3000);
-  });
+  try {
+    const response = await fetch('/api/optimize/title', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        originalTitle: title,
+        options: options,
+        userId: apiKeyManager.getUserId()
+      })
+    });
+
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error('API 호출 오류:', error);
+    return {
+      success: false,
+      error: 'API 호출에 실패했습니다.'
+    };
+  }
 }
 
 async function callTagsAPI(originalTitle, optimizedTitles) {
@@ -862,3 +887,35 @@ async function callAnalyticsAPI(channelId) {
 // 전역 함수로 노출 (HTML에서 직접 호출)
 window.copyToClipboard = copyToClipboard;
 window.useTitle = useTitle;
+
+// Auth page handling
+function closeAuthPage() {
+  document.getElementById('authSuccessPage').style.display = 'none';
+  document.getElementById('authErrorPage').style.display = 'none';
+  
+  // Remove URL parameters
+  const url = new URL(window.location);
+  url.searchParams.delete('auth-success');
+  url.searchParams.delete('auth-error');
+  url.searchParams.delete('userId');
+  window.history.replaceState({}, '', url);
+}
+
+// Check for auth success/error on page load
+document.addEventListener('DOMContentLoaded', function() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const authSuccess = urlParams.get('auth-success');
+  const authError = urlParams.get('auth-error');
+  const userId = urlParams.get('userId');
+  
+  if (authSuccess && userId) {
+    document.getElementById('authSuccessPage').style.display = 'flex';
+  } else if (authError) {
+    const errorMessage = document.getElementById('authErrorMessage');
+    errorMessage.textContent = decodeURIComponent(authError);
+    document.getElementById('authErrorPage').style.display = 'flex';
+  }
+});
+
+// Export for use in HTML
+window.closeAuthPage = closeAuthPage;

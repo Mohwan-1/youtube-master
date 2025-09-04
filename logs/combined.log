@@ -1,0 +1,42 @@
+{"level":"info","message":"Server running on port 3000","service":"youtube-optimizer","timestamp":"2025-09-04T05:28:57.764Z"}
+{"level":"info","message":"Environment: development","service":"youtube-optimizer","timestamp":"2025-09-04T05:28:57.766Z"}
+{"level":"info","message":"Health check: http://localhost:3000/api/health","service":"youtube-optimizer","timestamp":"2025-09-04T05:28:57.766Z"}
+{"level":"info","message":"Server running on port 3000","service":"youtube-optimizer","timestamp":"2025-09-04T05:28:59.240Z"}
+{"level":"info","message":"Environment: development","service":"youtube-optimizer","timestamp":"2025-09-04T05:28:59.242Z"}
+{"level":"info","message":"Health check: http://localhost:3000/api/health","service":"youtube-optimizer","timestamp":"2025-09-04T05:28:59.242Z"}
+{"level":"info","message":"Server running on port 3000","service":"youtube-optimizer","timestamp":"2025-09-04T05:30:07.492Z"}
+{"level":"info","message":"Environment: development","service":"youtube-optimizer","timestamp":"2025-09-04T05:30:07.494Z"}
+{"level":"info","message":"Health check: http://localhost:3000/api/health","service":"youtube-optimizer","timestamp":"2025-09-04T05:30:07.495Z"}
+{"level":"info","message":"Server running on port 3000","service":"youtube-optimizer","timestamp":"2025-09-04T05:33:53.258Z"}
+{"level":"info","message":"Environment: development","service":"youtube-optimizer","timestamp":"2025-09-04T05:33:53.261Z"}
+{"level":"info","message":"Health check: http://localhost:3000/api/health","service":"youtube-optimizer","timestamp":"2025-09-04T05:33:53.261Z"}
+{"level":"info","message":"Server running on port 3000","service":"youtube-optimizer","timestamp":"2025-09-04T05:43:43.108Z"}
+{"level":"info","message":"Environment: development","service":"youtube-optimizer","timestamp":"2025-09-04T05:43:43.110Z"}
+{"level":"info","message":"Health check: http://localhost:3000/api/health","service":"youtube-optimizer","timestamp":"2025-09-04T05:43:43.111Z"}
+{"level":"info","message":"Server running on port 3000","service":"youtube-optimizer","timestamp":"2025-09-04T05:43:51.033Z"}
+{"level":"info","message":"Environment: development","service":"youtube-optimizer","timestamp":"2025-09-04T05:43:51.035Z"}
+{"level":"info","message":"Health check: http://localhost:3000/api/health","service":"youtube-optimizer","timestamp":"2025-09-04T05:43:51.036Z"}
+{"level":"info","message":"Server running on port 3000","service":"youtube-optimizer","timestamp":"2025-09-04T05:43:55.439Z"}
+{"level":"info","message":"Environment: development","service":"youtube-optimizer","timestamp":"2025-09-04T05:43:55.442Z"}
+{"level":"info","message":"Health check: http://localhost:3000/api/health","service":"youtube-optimizer","timestamp":"2025-09-04T05:43:55.442Z"}
+{"level":"info","message":"Server running on port 3000","service":"youtube-optimizer","timestamp":"2025-09-04T05:46:52.026Z"}
+{"level":"info","message":"Environment: development","service":"youtube-optimizer","timestamp":"2025-09-04T05:46:52.029Z"}
+{"level":"info","message":"Health check: http://localhost:3000/api/health","service":"youtube-optimizer","timestamp":"2025-09-04T05:46:52.029Z"}
+{"level":"info","message":"Server running on port 3000","service":"youtube-optimizer","timestamp":"2025-09-04T05:48:37.471Z"}
+{"level":"info","message":"Environment: development","service":"youtube-optimizer","timestamp":"2025-09-04T05:48:37.473Z"}
+{"level":"info","message":"Health check: http://localhost:3000/api/health","service":"youtube-optimizer","timestamp":"2025-09-04T05:48:37.473Z"}
+{"level":"info","message":"Server running on port 3000","service":"youtube-optimizer","timestamp":"2025-09-04T06:01:52.140Z"}
+{"level":"info","message":"Environment: development","service":"youtube-optimizer","timestamp":"2025-09-04T06:01:52.142Z"}
+{"level":"info","message":"Health check: http://localhost:3000/api/health","service":"youtube-optimizer","timestamp":"2025-09-04T06:01:52.143Z"}
+{"level":"info","message":"Server running on port 3000","service":"youtube-optimizer","timestamp":"2025-09-04T06:03:36.912Z"}
+{"level":"info","message":"Environment: development","service":"youtube-optimizer","timestamp":"2025-09-04T06:03:36.914Z"}
+{"level":"info","message":"Health check: http://localhost:3000/api/health","service":"youtube-optimizer","timestamp":"2025-09-04T06:03:36.914Z"}
+{"level":"info","message":"Server running on port 3000","service":"youtube-optimizer","timestamp":"2025-09-04T06:04:08.386Z"}
+{"level":"info","message":"Environment: development","service":"youtube-optimizer","timestamp":"2025-09-04T06:04:08.388Z"}
+{"level":"info","message":"Health check: http://localhost:3000/api/health","service":"youtube-optimizer","timestamp":"2025-09-04T06:04:08.388Z"}
+{"level":"info","message":"Server running on port 3000","service":"youtube-optimizer","timestamp":"2025-09-04T06:06:57.006Z"}
+{"level":"info","message":"Environment: development","service":"youtube-optimizer","timestamp":"2025-09-04T06:06:57.008Z"}
+{"level":"info","message":"Health check: http://localhost:3000/api/health","service":"youtube-optimizer","timestamp":"2025-09-04T06:06:57.008Z"}
+{"level":"info","message":"Server running on port 3000","service":"youtube-optimizer","timestamp":"2025-09-04T06:07:19.073Z"}
+{"level":"info","message":"Environment: development","service":"youtube-optimizer","timestamp":"2025-09-04T06:07:19.075Z"}
+{"level":"info","message":"Health check: http://localhost:3000/api/health","service":"youtube-optimizer","timestamp":"2025-09-04T06:07:19.075Z"}

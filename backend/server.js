@@ -10,6 +10,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const compression = require('compression');
+const session = require('express-session');
 const path = require('path');
 require('dotenv').config();
 
@@ -17,6 +18,7 @@ require('dotenv').config();
 const authRoutes = require('./routes/auth');
 const optimizeRoutes = require('./routes/optimize');
 const analyticsRoutes = require('./routes/analytics');
+const apiKeysRoutes = require('./routes/apiKeys');
 
 // Import middleware
 const rateLimit = require('./middleware/rateLimit');
@@ -67,6 +69,18 @@ app.use(morgan('combined', { stream: { write: message => logger.info(message.tri
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
+// Session middleware
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'your-secret-key',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    secure: process.env.NODE_ENV === 'production',
+    httpOnly: true,
+    maxAge: 24 * 60 * 60 * 1000 // 24 hours
+  }
+}));
+
 // Rate limiting
 app.use('/api/', rateLimit);
 
@@ -79,6 +93,7 @@ if (process.env.NODE_ENV === 'production') {
 app.use('/api/auth', authRoutes);
 app.use('/api/optimize', optimizeRoutes);
 app.use('/api/analytics', analyticsRoutes);
+app.use('/api/keys', apiKeysRoutes);
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
