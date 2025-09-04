@@ -1,0 +1,991 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=0,maximum-scale=10,user-scalable=no">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="imagetoolbar" content="no">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="Robots" content="index,follow"/>
+    <meta name="description" content="AI 기반 유튜브 제목, 태그 최적화 도구 - 무료 서비스" />
+    <meta name="keywords" content="유튜브, 제목최적화, 태그생성, 크리에이터도구, YouTube, 메타데이터" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="YouTube 메타데이터 최적화 도구" />
+    <meta property="og:description" content="AI 기반 유튜브 제목, 태그 최적화 도구" />
+    <meta property="og:site_name" content="YouTube Creator Workflow Automation" />
+    <meta property="og:image" content="./white@2x.png" >
+    <meta property="og:url" content="https://github.com/Mohwan-1/YouTube-Creator-Workflow-Automation-v1" />
+    
+    <title>유튜브 메타데이터 최적화 도구</title>
+    <link rel="icon" type="image/png" sizes="48x48" href="./android-icon-48x48.png">
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Google AdSense 자동 광고 -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8057197445850296"
+         crossorigin="anonymous"></script>
+    
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #ff4757, #ff3742);
+            --secondary-gradient: linear-gradient(135deg, #5f27cd, #341f97);
+            --accent-gradient: linear-gradient(135deg, #00d2d3, #54a0ff);
+            --success-color: #2ed573;
+            --warning-color: #ffa502;
+            --danger-color: #ff4757;
+            --light-bg: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            --dark-text: #2c3e50;
+            --light-text: #7f8c8d;
+            --border-radius-sm: 8px;
+            --border-radius-md: 16px;
+            --border-radius-lg: 24px;
+            --spacing-xs: 4px;
+            --spacing-sm: 8px;
+            --spacing-md: 16px;
+            --spacing-lg: 24px;
+            --spacing-xl: 32px;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.06);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.07), 0 10px 15px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 15px rgba(0,0,0,0.1), 0 20px 25px rgba(0,0,0,0.15);
+            --shadow-xl: 0 25px 50px rgba(0,0,0,0.25);
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.7;
+            color: var(--dark-text);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="0.5" fill="rgba(255,255,255,0.02)"/><circle cx="75" cy="75" r="0.3" fill="rgba(255,255,255,0.01)"/><circle cx="50" cy="10" r="0.2" fill="rgba(255,255,255,0.015)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            z-index: -1;
+            opacity: 0.1;
+        }
+        
+        .navbar {
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.95) !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .navbar-brand {
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .navbar-brand img {
+            height: 40px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            color: white;
+            padding: 120px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="rgba(255,255,255,0.05)" points="0,0 1000,300 1000,1000 0,700"/></svg>');
+            z-index: 1;
+        }
+        
+        .hero-section .container {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-section h1 {
+            font-weight: 800;
+            margin-bottom: 24px;
+            font-size: 3.5rem;
+            letter-spacing: -0.02em;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            line-height: 1.1;
+        }
+        
+        .hero-section p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            font-weight: 300;
+            opacity: 0.95;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-xl);
+            padding: var(--spacing-xl);
+            margin-bottom: var(--spacing-lg);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .glass-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 32px 64px rgba(0,0,0,0.15);
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: var(--border-radius-md);
+            box-shadow: var(--shadow-lg);
+            padding: var(--spacing-xl);
+            margin-bottom: var(--spacing-lg);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s;
+        }
+        
+        .feature-card:hover::before {
+            left: 100%;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+        }
+        
+        .feature-icon {
+            font-size: 3.5rem;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: var(--spacing-md);
+            display: block;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+        
+        .optimizer-form {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-xl);
+            box-shadow: var(--shadow-xl);
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .optimizer-form h3 {
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .optimizer-form__input {
+            border: 2px solid rgba(102, 126, 234, 0.1);
+            border-radius: var(--border-radius-md);
+            padding: 16px 20px;
+            font-size: 16px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            font-weight: 400;
+        }
+        
+        .optimizer-form__input:focus {
+            border-color: rgba(102, 126, 234, 0.5);
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+            background: rgba(255, 255, 255, 0.95);
+            outline: none;
+        }
+        
+        .optimizer-form__input::placeholder {
+            color: rgba(108, 117, 125, 0.7);
+            font-weight: 300;
+        }
+        
+        .optimizer-form__button {
+            background: var(--primary-gradient);
+            border: none;
+            color: white;
+            padding: 16px 32px;
+            border-radius: var(--border-radius-md);
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .optimizer-form__button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s;
+        }
+        
+        .optimizer-form__button:hover::before {
+            left: 100%;
+        }
+        
+        .optimizer-form__button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .youtube-login-btn {
+            background: linear-gradient(135deg, #ff4757, #ff3742);
+            border: none;
+            color: white;
+            padding: 18px 36px;
+            border-radius: var(--border-radius-md);
+            font-weight: 600;
+            font-size: 1.2rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .youtube-login-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s;
+        }
+        
+        .youtube-login-btn:hover::before {
+            left: 100%;
+        }
+        
+        .youtube-login-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(255, 71, 87, 0.4);
+        }
+        
+        .result-section {
+            background: rgba(248, 249, 250, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: var(--border-radius-md);
+            padding: var(--spacing-xl);
+            margin-top: var(--spacing-lg);
+            display: none;
+        }
+        
+        .result-item {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: var(--border-radius-md);
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-md);
+            border-left: 4px solid;
+            border-left-color: #ff4757;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .result-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background: var(--primary-gradient);
+            transition: width 0.3s ease;
+        }
+        
+        .result-item:hover::before {
+            width: 6px;
+        }
+        
+        .result-item:hover {
+            transform: translateX(8px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .sidebar-ads {
+            position: sticky;
+            top: 100px;
+        }
+        
+        .ad-container {
+            background: rgba(248, 249, 250, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--border-radius-md);
+            padding: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+            text-align: center;
+            min-height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 300;
+            color: var(--light-text);
+        }
+        
+        .footer {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: rgba(255, 255, 255, 0.9);
+            padding: 60px 0 40px 0;
+            margin-top: 80px;
+            position: relative;
+        }
+        
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        }
+        
+        .footer h5 {
+            font-weight: 700;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .footer a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer a:hover {
+            color: white;
+        }
+        
+        .loading-spinner {
+            display: none;
+        }
+        
+        .error-message {
+            background: linear-gradient(135deg, #ff4757, #ff3742);
+            color: white;
+            padding: var(--spacing-md);
+            border-radius: var(--border-radius-md);
+            margin-bottom: var(--spacing-md);
+            display: none;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .btn {
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .btn:focus {
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.25);
+        }
+        
+        .copy-btn {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            color: #667eea;
+            border-radius: var(--border-radius-sm);
+            transition: all 0.3s ease;
+        }
+        
+        .copy-btn:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .badge {
+            font-weight: 600;
+            padding: 12px 16px;
+            font-size: 1.1rem;
+        }
+        
+        .bg-danger {
+            background: var(--primary-gradient) !important;
+        }
+        
+        .text-danger {
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .alert-success {
+            background: rgba(46, 213, 115, 0.1);
+            border: 1px solid rgba(46, 213, 115, 0.2);
+            color: #2ed573;
+            border-radius: var(--border-radius-md);
+            backdrop-filter: blur(10px);
+        }
+        
+        h2, h3, h4, h5 {
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+        
+        h2 {
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        @media (max-width: 991px) {
+            .sidebar-ads {
+                display: none !important;
+            }
+            
+            .hero-section {
+                padding: 60px 0;
+            }
+            
+            .hero-section h1 {
+                font-size: 2.5rem;
+            }
+            
+            .glass-card, .optimizer-form, .feature-card {
+                margin-left: var(--spacing-md);
+                margin-right: var(--spacing-md);
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero-section {
+                padding: 40px 0;
+            }
+            
+            .hero-section h1 {
+                font-size: 2rem;
+            }
+            
+            .hero-section p {
+                font-size: 1.1rem;
+            }
+            
+            .glass-card, .optimizer-form, .feature-card {
+                padding: var(--spacing-lg);
+                border-radius: var(--border-radius-md);
+            }
+        }
+        
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-gradient);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <img src="./white@2x.png" alt="Logo" class="me-2">
+                <span class="fw-bold">YouTube 최적화</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#features">기능</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#how-to-use">사용법</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">문의</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 상단 광고 -->
+    <div class="container my-3">
+        <div class="ad-container">
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8057197445850296"
+                 crossorigin="anonymous"></script>
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-8057197445850296"
+                 data-ad-slot="5964488484"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container text-center">
+            <h1><i class="fas fa-magic"></i> AI 기반 유튜브 메타데이터 최적화</h1>
+            <p class="lead">제목, 태그, 업로드 시간을 한 번에 최적화하여 조회수와 클릭률을 높이세요</p>
+            <button class="btn youtube-login-btn btn-lg" id="youtubeLoginBtn">
+                <i class="fab fa-youtube"></i> YouTube 채널 연동하기
+            </button>
+        </div>
+    </section>
+
+    <div class="container my-5">
+        <div class="row">
+            <!-- 좌측 사이드바 광고 (데스크톱만) -->
+            <div class="col-lg-2 d-none d-lg-block">
+                <div class="sidebar-ads">
+                    <div class="ad-container">
+                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8057197445850296"
+                             crossorigin="anonymous"></script>
+                        <ins class="adsbygoogle"
+                             style="display:block; width:160px; height:600px;"
+                             data-ad-client="ca-pub-8057197445850296"
+                             data-ad-slot="5964488484"></ins>
+                        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 메인 콘텐츠 -->
+            <div class="col-lg-8">
+                <!-- 제목 최적화 섹션 -->
+                <div class="optimizer-form glass-card">
+                    <h3 class="mb-4"><i class="fas fa-edit text-danger"></i> 제목 최적화</h3>
+                    <div class="error-message" id="errorMessage"></div>
+                    <div class="mb-3">
+                        <label for="originalTitle" class="form-label">원본 제목을 입력하세요</label>
+                        <input type="text" class="form-control optimizer-form__input" id="originalTitle" 
+                               placeholder="예: 오늘 요리해봤어요" maxlength="200">
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <button type="button" class="btn optimizer-form__button" id="optimizeBtn">
+                            <span class="loading-spinner spinner-border spinner-border-sm me-2" role="status"></span>
+                            제목 최적화하기
+                        </button>
+                        <small class="text-muted">무료 · 무제한</small>
+                    </div>
+                    
+                    <!-- 결과 표시 영역 -->
+                    <div class="result-section" id="resultSection">
+                        <h5 class="mb-3"><i class="fas fa-lightbulb text-warning"></i> 최적화된 제목 제안</h5>
+                        <div id="optimizedTitles"></div>
+                    </div>
+                </div>
+
+                <!-- 중간 광고 -->
+                <div class="ad-container my-4">
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8057197445850296"
+                         crossorigin="anonymous"></script>
+                    <ins class="adsbygoogle"
+                         style="display:block; text-align:center;"
+                         data-ad-layout="in-article"
+                         data-ad-format="fluid"
+                         data-ad-client="ca-pub-8057197445850296"
+                         data-ad-slot="5964488484"></ins>
+                    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+                </div>
+
+                <!-- 기능 소개 -->
+                <section id="features" class="my-5">
+                    <h2 class="text-center mb-5">주요 기능</h2>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="feature-card text-center">
+                                <div class="feature-icon">
+                                    <i class="fas fa-robot"></i>
+                                </div>
+                                <h4>AI 제목 최적화</h4>
+                                <p>Google Gemini AI가 분석한 최적화된 제목 3가지를 제안합니다.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="feature-card text-center">
+                                <div class="feature-icon">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <h4>최적 업로드 시간</h4>
+                                <p>구독자 활동 패턴을 분석하여 최적의 업로드 시간을 추천합니다.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="feature-card text-center">
+                                <div class="feature-icon">
+                                    <i class="fas fa-tags"></i>
+                                </div>
+                                <h4>스마트 태그 생성</h4>
+                                <p>트렌드와 채널 특성을 고려한 관련 태그를 자동으로 생성합니다.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 사용법 안내 -->
+                <section id="how-to-use" class="my-5">
+                    <h2 class="text-center mb-5">사용법</h2>
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <div class="d-flex">
+                                <div class="flex-shrink-0">
+                                    <span class="badge bg-danger rounded-pill fs-6">1</span>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h5>YouTube 채널 연동</h5>
+                                    <p>"YouTube 채널 연동하기" 버튼을 클릭하여 Google 계정으로 로그인하세요.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="d-flex">
+                                <div class="flex-shrink-0">
+                                    <span class="badge bg-danger rounded-pill fs-6">2</span>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h5>제목 입력</h5>
+                                    <p>최적화하고 싶은 원본 제목을 입력창에 입력하세요.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="d-flex">
+                                <div class="flex-shrink-0">
+                                    <span class="badge bg-danger rounded-pill fs-6">3</span>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h5>최적화 실행</h5>
+                                    <p>"제목 최적화하기" 버튼을 클릭하여 AI 분석을 시작하세요.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="d-flex">
+                                <div class="flex-shrink-0">
+                                    <span class="badge bg-danger rounded-pill fs-6">4</span>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h5>결과 선택</h5>
+                                    <p>제안된 3가지 최적화 제목 중 마음에 드는 것을 선택하세요.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            
+            <!-- 우측 사이드바 광고 (데스크톱만) -->
+            <div class="col-lg-2 d-none d-lg-block">
+                <div class="sidebar-ads">
+                    <div class="ad-container">
+                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8057197445850296"
+                             crossorigin="anonymous"></script>
+                        <ins class="adsbygoogle"
+                             style="display:block; width:160px; height:600px;"
+                             data-ad-client="ca-pub-8057197445850296"
+                             data-ad-slot="5964488484"></ins>
+                        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 하단 광고 -->
+    <div class="container my-4">
+        <div class="ad-container">
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8057197445850296"
+                 crossorigin="anonymous"></script>
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-8057197445850296"
+                 data-ad-slot="5964488484"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5><i class="fas fa-magic me-2"></i>YouTube 메타데이터 최적화</h5>
+                    <p class="mb-0">유튜브 크리에이터를 위한 무료 AI 도구</p>
+                    <p class="text-muted">© 2024 All rights reserved.</p>
+                </div>
+                <div class="col-md-6">
+                    <h6>문의</h6>
+                    <p class="mb-1"><i class="fab fa-github me-2"></i>GitHub: 
+                        <a href="https://github.com/Mohwan-1/YouTube-Creator-Workflow-Automation-v1" class="text-light">
+                            Mohwan-1/YouTube-Creator-Workflow-Automation-v1
+                        </a>
+                    </p>
+                    <p class="mb-0"><i class="fas fa-envelope me-2"></i>이메일: support@example.com</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // DOM Elements
+        const youtubeLoginBtn = document.getElementById('youtubeLoginBtn');
+        const originalTitle = document.getElementById('originalTitle');
+        const optimizeBtn = document.getElementById('optimizeBtn');
+        const resultSection = document.getElementById('resultSection');
+        const optimizedTitles = document.getElementById('optimizedTitles');
+        const errorMessage = document.getElementById('errorMessage');
+        const loadingSpinner = document.querySelector('.loading-spinner');
+
+        // State
+        let isLoggedIn = false;
+        let channelData = null;
+
+        // YouTube 로그인 (Mock)
+        youtubeLoginBtn.addEventListener('click', function() {
+            if (!isLoggedIn) {
+                // 실제 구현에서는 Google OAuth를 사용
+                simulateYouTubeLogin();
+            }
+        });
+
+        function simulateYouTubeLogin() {
+            youtubeLoginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 연동 중...';
+            youtubeLoginBtn.disabled = true;
+
+            // 2초 후 로그인 완료 시뮬레이션
+            setTimeout(() => {
+                isLoggedIn = true;
+                channelData = {
+                    channelTitle: '샘플 채널',
+                    subscriberCount: 12500
+                };
+                
+                youtubeLoginBtn.innerHTML = '<i class="fas fa-check text-success"></i> 연동 완료: ' + channelData.channelTitle;
+                youtubeLoginBtn.classList.remove('youtube-login-btn');
+                youtubeLoginBtn.classList.add('btn-success');
+                youtubeLoginBtn.disabled = false;
+                
+                showSuccessMessage('YouTube 채널이 성공적으로 연동되었습니다!');
+            }, 2000);
+        }
+
+        // 제목 최적화
+        optimizeBtn.addEventListener('click', function() {
+            const title = originalTitle.value.trim();
+            
+            if (!title) {
+                showErrorMessage('제목을 입력해주세요.');
+                return;
+            }
+            
+            if (title.length > 200) {
+                showErrorMessage('제목이 너무 깁니다. (최대 200자)');
+                return;
+            }
+
+            hideErrorMessage();
+            startOptimization(title);
+        });
+
+        function startOptimization(title) {
+            // UI 상태 변경
+            optimizeBtn.disabled = true;
+            loadingSpinner.style.display = 'inline-block';
+            resultSection.style.display = 'none';
+
+            // API 호출 시뮬레이션
+            setTimeout(() => {
+                const optimizedResults = generateOptimizedTitles(title);
+                displayResults(optimizedResults);
+                
+                // UI 상태 복원
+                optimizeBtn.disabled = false;
+                loadingSpinner.style.display = 'none';
+            }, 3000);
+        }
+
+        function generateOptimizedTitles(originalTitle) {
+            // 실제 구현에서는 Gemini API를 호출
+            return [
+                {
+                    title: `🔥 ${originalTitle} | 완벽 가이드`,
+                    expectedCTR: 15.2,
+                    confidence: 85
+                },
+                {
+                    title: `[필수시청] ${originalTitle} 핵심 정리`,
+                    expectedCTR: 12.8,
+                    confidence: 78
+                },
+                {
+                    title: `${originalTitle} - 이것만 알면 끝!`,
+                    expectedCTR: 11.5,
+                    confidence: 72
+                }
+            ];
+        }
+
+        function displayResults(results) {
+            optimizedTitles.innerHTML = '';
+            
+            results.forEach((result, index) => {
+                const resultItem = document.createElement('div');
+                resultItem.className = 'result-item';
+                resultItem.innerHTML = `
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div class="flex-grow-1">
+                            <h6 class="mb-2">제안 ${index + 1}</h6>
+                            <p class="mb-2 fw-bold">${result.title}</p>
+                            <div class="d-flex gap-3">
+                                <small class="text-success">
+                                    <i class="fas fa-chart-line"></i> 예상 CTR: ${result.expectedCTR}%
+                                </small>
+                                <small class="text-info">
+                                    <i class="fas fa-star"></i> 신뢰도: ${result.confidence}%
+                                </small>
+                            </div>
+                        </div>
+                        <button class="btn btn-outline-primary btn-sm copy-btn" 
+                                onclick="copyToClipboard('${result.title.replace(/'/g, "\\'")}')">
+                            <i class="fas fa-copy"></i> 복사
+                        </button>
+                    </div>
+                `;
+                optimizedTitles.appendChild(resultItem);
+            });
+            
+            resultSection.style.display = 'block';
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                showSuccessMessage('제목이 클립보드에 복사되었습니다!');
+            });
+        }
+
+        function showErrorMessage(message) {
+            errorMessage.textContent = message;
+            errorMessage.style.display = 'block';
+        }
+
+        function hideErrorMessage() {
+            errorMessage.style.display = 'none';
+        }
+
+        function showSuccessMessage(message) {
+            // 간단한 성공 메시지 표시
+            const toast = document.createElement('div');
+            toast.className = 'alert alert-success alert-dismissible fade show position-fixed';
+            toast.style.top = '20px';
+            toast.style.right = '20px';
+            toast.style.zIndex = '9999';
+            toast.innerHTML = `
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                if (toast.parentNode) {
+                    toast.parentNode.removeChild(toast);
+                }
+            }, 5000);
+        }
+
+        // Enter 키로 최적화 실행
+        originalTitle.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                optimizeBtn.click();
+            }
+        });
+
+        // Google Analytics 추적 (실제 GA ID로 교체 필요)
+        function trackOptimization(success) {
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'optimize', {
+                    'event_category': 'engagement',
+                    'event_label': 'title_optimization',
+                    'value': success ? 1 : 0
+                });
+            }
+        }
+    </script>
+</body>
+</html>
