@@ -1,0 +1,75 @@
+자동광고(Google AdSense)
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8057197445850296"
+     crossorigin="anonymous"></script>
+
+수동광고(인아티클 광고) Google AdSense) (sdi1)
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8057197445850296"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8057197445850296"
+     data-ad-slot="5964488484"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+Gemini API 빠른 시작 가이드
+curl "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent" \
+  -H 'Content-Type: application/json' \
+  -H 'X-goog-api-key: GEMINI_API_KEY' \
+  -X POST \
+  -d '{
+    "contents": [
+      {
+        "parts": [
+          {
+            "text": "Explain how AI works in a few words"
+          }
+        ]
+      }
+    ]
+  }'
+
+Gemini API 키
+AIzaSyDBe0JCBmlce0jVlhyXpp08pXiLbW9G7bw
+
+
+
+메타테그
+
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=0,maximum-scale=10,user-scalable=no">
+<meta name="HandheldFriendly" content="true">
+<meta name="format-detection" content="telephone=no">
+<meta http-equiv="imagetoolbar" content="no">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="Robots" content="index,follow"/>
+<meta name="description" content="유튜브 썸네일 자동생성기" />
+<meta name="keywords" content="시돈띵의 유튜브 도구모음" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="유튜브 썸네일 자동생성기" />
+<meta property="og:description" content="시돈띵의 유튜브 도구모음" />
+<meta property="og:site_name" content="유튜버를 위한 도구 모음 사이트" />
+<meta property="og:image" content="/public/bsd.png" >
+<meta property="og:url" content="https://sdi0.mohwan.com/" />
+
+
+
+어썸네일
+2,070	6,540	높음 
+ 
+유튜브 썸네일
+2,160	164,000	높음 
+ 
+유튜브 썸네일 만들기
+1,670	32,500	보통 
+ 
+유튜브 썸네일 추출
+2,490	3,400	보통 
+ 
+유튜브 썸네일 크기

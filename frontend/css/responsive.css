@@ -1,0 +1,595 @@
+/* ===== Responsive Design ===== */
+
+/* Mobile First Approach */
+
+/* Extra Small devices (phones, 576px and down) */
+@media (max-width: 575.98px) {
+  :root {
+    --font-size-5xl: 2rem;
+    --font-size-4xl: 1.75rem;
+    --font-size-3xl: 1.5rem;
+    --font-size-2xl: 1.25rem;
+    --font-size-xl: 1.125rem;
+    --font-size-lg: 1rem;
+    --spacing-3xl: 2rem;
+    --spacing-2xl: 1.5rem;
+    --spacing-xl: 1rem;
+    --spacing-lg: 0.75rem;
+  }
+
+  /* Header */
+  .navbar-brand {
+    font-size: var(--font-size-lg);
+  }
+
+  .brand-text {
+    display: none;
+  }
+
+  /* Hero Section */
+  .hero-section {
+    padding-top: 60px;
+    text-align: center;
+  }
+
+  .hero-title {
+    font-size: var(--font-size-4xl);
+    line-height: 1.2;
+  }
+
+  .hero-subtitle {
+    font-size: var(--font-size-lg);
+    line-height: 1.5;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+
+  .btn-lg {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Mockup */
+  .youtube-mockup {
+    transform: none;
+    max-width: 100%;
+    margin-top: var(--spacing-xl);
+  }
+
+  .youtube-mockup:hover {
+    transform: none;
+  }
+
+  .video-thumbnail {
+    height: 150px;
+  }
+
+  .play-button {
+    width: 50px;
+    height: 50px;
+    font-size: var(--font-size-lg);
+  }
+
+  /* Optimization Cards */
+  .optimization-card {
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .connection-card {
+    padding: var(--spacing-lg);
+  }
+
+  .optimization-options {
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+
+  .form-check {
+    justify-content: center;
+  }
+
+  /* Results */
+  .result-stats {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .result-actions {
+    justify-content: center;
+  }
+
+  /* Features */
+  .feature-card {
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .feature-icon {
+    width: 60px;
+    height: 60px;
+    font-size: var(--font-size-xl);
+  }
+
+  /* Steps */
+  .step-card {
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .step-number {
+    width: 50px;
+    height: 50px;
+    font-size: var(--font-size-lg);
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+  }
+
+  .footer-brand {
+    justify-content: center;
+  }
+
+  .footer-links {
+    margin-top: var(--spacing-lg);
+  }
+
+  /* Sidebar Ads */
+  .sidebar-ad {
+    display: none;
+  }
+
+  /* Ad Sections */
+  .ad-section {
+    padding: var(--spacing-lg) 0;
+  }
+
+  .ad-container {
+    min-height: 60px;
+  }
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .hero-title {
+    font-size: var(--font-size-4xl);
+  }
+
+  .hero-buttons {
+    justify-content: center;
+  }
+
+  .optimization-options {
+    justify-content: center;
+  }
+
+  .result-stats {
+    justify-content: center;
+  }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .hero-title {
+    font-size: var(--font-size-4xl);
+  }
+
+  .youtube-mockup {
+    transform: rotateY(-10deg) rotateX(3deg);
+  }
+
+  .optimization-container {
+    max-width: 100%;
+  }
+
+  .sidebar-ad {
+    display: none;
+  }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .youtube-mockup {
+    transform: rotateY(-12deg) rotateX(4deg);
+  }
+
+  .optimization-container {
+    max-width: 700px;
+  }
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  .hero-title {
+    font-size: var(--font-size-5xl);
+  }
+
+  .youtube-mockup {
+    transform: rotateY(-15deg) rotateX(5deg);
+  }
+
+  .optimization-container {
+    max-width: 800px;
+  }
+}
+
+/* ===== Print Styles ===== */
+@media print {
+  .header,
+  .ad-section,
+  .sidebar-ad,
+  .footer,
+  .btn {
+    display: none !important;
+  }
+
+  .hero-section {
+    background: white !important;
+    color: black !important;
+    padding: 0 !important;
+  }
+
+  .optimization-card {
+    box-shadow: none !important;
+    border: 1px solid #ccc !important;
+    page-break-inside: avoid;
+  }
+
+  .result-item {
+    background: white !important;
+    border: 1px solid #ccc !important;
+  }
+}
+
+/* ===== High Contrast Mode ===== */
+@media (prefers-contrast: high) {
+  :root {
+    --primary-color: #000000;
+    --secondary-color: #000000;
+    --gray-100: #ffffff;
+    --gray-200: #ffffff;
+    --gray-300: #000000;
+    --gray-400: #000000;
+    --gray-500: #000000;
+    --gray-600: #000000;
+  }
+
+  .btn {
+    border: 2px solid currentColor;
+  }
+
+  .form-control {
+    border: 2px solid currentColor;
+  }
+
+  .optimization-card {
+    border: 2px solid currentColor;
+  }
+}
+
+/* ===== Reduced Motion ===== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .btn:hover {
+    transform: none;
+  }
+
+  .optimization-card:hover {
+    transform: none;
+  }
+
+  .feature-card:hover {
+    transform: none;
+  }
+
+  .result-item:hover {
+    transform: none;
+  }
+
+  .tag-item:hover {
+    transform: none;
+  }
+
+  .time-slot:hover {
+    transform: none;
+  }
+
+  .youtube-mockup:hover {
+    transform: rotateY(-15deg) rotateX(5deg);
+  }
+}
+
+/* ===== Dark Mode Support ===== */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --white: #1a1a1a;
+    --gray-100: #2d2d2d;
+    --gray-200: #404040;
+    --gray-300: #555555;
+    --gray-400: #6b6b6b;
+    --gray-500: #808080;
+    --gray-600: #959595;
+    --gray-700: #aaaaaa;
+    --gray-800: #bfbfbf;
+    --gray-900: #d4d4d4;
+    --dark-text: #ffffff;
+  }
+
+  body {
+    background-color: var(--white);
+    color: var(--dark-text);
+  }
+
+  .optimization-card {
+    background: var(--gray-100);
+    border-color: var(--gray-200);
+  }
+
+  .connection-card {
+    background: var(--gray-100);
+    border-color: var(--gray-200);
+  }
+
+  .form-control {
+    background: var(--gray-100);
+    border-color: var(--gray-300);
+    color: var(--dark-text);
+  }
+
+  .form-control:focus {
+    background: var(--gray-200);
+  }
+
+  .result-item {
+    background: var(--gray-100);
+  }
+
+  .feature-card {
+    background: var(--gray-100);
+  }
+
+  .time-slot {
+    background: var(--gray-100);
+  }
+
+  .ad-container {
+    background: var(--gray-100);
+  }
+
+  .features-section {
+    background: var(--gray-200);
+  }
+}
+
+/* ===== Landscape Orientation ===== */
+@media (orientation: landscape) and (max-height: 500px) {
+  .hero-section {
+    min-height: auto;
+    padding: var(--spacing-xl) 0;
+  }
+
+  .hero-title {
+    font-size: var(--font-size-3xl);
+  }
+
+  .hero-subtitle {
+    font-size: var(--font-size-lg);
+  }
+}
+
+/* ===== Touch Device Optimizations ===== */
+@media (hover: none) and (pointer: coarse) {
+  .btn:hover {
+    transform: none;
+  }
+
+  .optimization-card:hover {
+    transform: none;
+  }
+
+  .feature-card:hover {
+    transform: none;
+  }
+
+  .result-item:hover {
+    transform: none;
+  }
+
+  .tag-item:hover {
+    transform: none;
+  }
+
+  .time-slot:hover {
+    transform: none;
+  }
+
+  .youtube-mockup:hover {
+    transform: rotateY(-15deg) rotateX(5deg);
+  }
+
+  /* Increase touch targets */
+  .btn {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  .form-check-input {
+    width: 24px;
+    height: 24px;
+  }
+
+  .tag-item {
+    min-height: 44px;
+    padding: var(--spacing-md) var(--spacing-lg);
+  }
+
+  .time-slot {
+    min-height: 44px;
+  }
+}
+
+/* ===== Focus Styles for Accessibility ===== */
+.btn:focus,
+.form-control:focus,
+.form-check-input:focus,
+.tag-item:focus,
+.time-slot:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* ===== Loading States ===== */
+@media (max-width: 575.98px) {
+  .loading-state {
+    padding: var(--spacing-lg);
+  }
+
+  .spinner-border {
+    width: 2rem;
+    height: 2rem;
+  }
+}
+
+/* ===== Copy Feedback ===== */
+@media (max-width: 575.98px) {
+  .copy-feedback {
+    top: 10px;
+    right: 10px;
+    left: 10px;
+    transform: translateY(-100%);
+  }
+
+  .copy-feedback.show {
+    transform: translateY(0);
+  }
+}
+
+/* ===== Navigation Improvements ===== */
+@media (max-width: 991.98px) {
+  .navbar-collapse {
+    background: rgba(40, 40, 40, 0.98);
+    backdrop-filter: blur(10px);
+    border-radius: var(--border-radius);
+    margin-top: var(--spacing-md);
+    padding: var(--spacing-md);
+  }
+
+  .navbar-nav .nav-link {
+    padding: var(--spacing-sm) 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .navbar-nav .nav-link:last-child {
+    border-bottom: none;
+  }
+}
+
+/* ===== Grid Improvements ===== */
+@media (max-width: 575.98px) {
+  .upload-time-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .upload-time-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 768px) {
+  .upload-time-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* ===== Container Adjustments ===== */
+@media (max-width: 575.98px) {
+  .container {
+    padding-left: var(--spacing-md);
+    padding-right: var(--spacing-md);
+  }
+}
+
+/* ===== Text Adjustments ===== */
+@media (max-width: 575.98px) {
+  .hero-subtitle br {
+    display: none;
+  }
+
+  .card-header p {
+    font-size: var(--font-size-base);
+  }
+
+  .connection-description {
+    font-size: var(--font-size-base);
+  }
+}
+
+/* ===== Spacing Adjustments ===== */
+@media (max-width: 575.98px) {
+  .optimization-section {
+    padding: var(--spacing-xl) 0;
+  }
+
+  .features-section {
+    padding: var(--spacing-xl) 0;
+  }
+
+  .how-it-works-section {
+    padding: var(--spacing-xl) 0;
+  }
+
+  .footer {
+    padding: var(--spacing-xl) 0 var(--spacing-lg);
+  }
+}
+
+/* ===== Animation Adjustments ===== */
+@media (max-width: 575.98px) {
+  .fade-in-up,
+  .fade-in,
+  .slide-in-left,
+  .slide-in-right {
+    animation-duration: 0.4s;
+  }
+}
+
+/* ===== Performance Optimizations ===== */
+@media (max-width: 575.98px) {
+  .youtube-mockup {
+    will-change: transform;
+  }
+
+  .optimization-card,
+  .feature-card {
+    will-change: transform;
+  }
+}
+
+/* ===== Critical CSS for Mobile ===== */
+@media (max-width: 575.98px) {
+  .hero-section {
+    background-attachment: scroll;
+  }
+
+  .youtube-mockup {
+    transform: none;
+  }
+
+  .btn {
+    touch-action: manipulation;
+  }
+}

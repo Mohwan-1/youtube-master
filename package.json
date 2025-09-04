@@ -1,0 +1,67 @@
+{
+  "name": "youtube-optimizer",
+  "version": "1.0.0",
+  "description": "AI 기반 유튜브 메타데이터 최적화 도구",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "nodemon backend/server.js",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "keywords": [
+    "youtube",
+    "optimization",
+    "ai",
+    "gemini",
+    "metadata",
+    "creator",
+    "tool"
+  ],
+  "author": "SDI Solution Driven Innovators",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "helmet": "^7.1.0",
+    "morgan": "^1.10.0",
+    "dotenv": "^16.3.1",
+    "mongoose": "^8.0.3",
+    "jsonwebtoken": "^9.0.2",
+    "bcryptjs": "^2.4.3",
+    "express-rate-limit": "^7.1.5",
+    "express-validator": "^7.0.1",
+    "winston": "^3.11.0",
+    "node-cache": "^5.1.2",
+    "axios": "^1.6.2",
+    "google-auth-library": "^9.4.2",
+    "googleapis": "^128.0.0",
+    "compression": "^1.7.4",
+    "express-slow-down": "^2.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2",
+    "jest": "^29.7.0",
+    "supertest": "^6.3.3",
+    "eslint": "^8.55.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.29.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^6.1.1"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Mohwan-1/YouTube-Creator-Workflow-Automation.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Mohwan-1/YouTube-Creator-Workflow-Automation/issues"
+  },
+  "homepage": "https://github.com/Mohwan-1/YouTube-Creator-Workflow-Automation#readme"
+}
