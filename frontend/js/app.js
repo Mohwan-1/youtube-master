@@ -204,7 +204,7 @@ async function connectYouTubeChannel() {
     showLoadingState('connectChannel');
     
     // Get OAuth URL from backend
-    const response = await fetch(`http://localhost:3000/api/auth/url/${apiKeyManager.getUserId()}`);
+    const response = await fetch(`/api/auth/url/${apiKeyManager.getUserId()}`);
     const data = await response.json();
     
     if (!data.success) {
@@ -791,7 +791,7 @@ async function waitForAuthResult(authWindow) {
         
         if (authSuccess && userId) {
           // Get user info from backend
-          fetch(`http://localhost:3000/api/auth/user/${userId}`)
+          fetch(`/api/auth/user/${userId}`)
             .then(response => response.json())
             .then(data => {
               if (data.success) {
@@ -831,7 +831,7 @@ async function waitForAuthResult(authWindow) {
 
 async function callOptimizeAPI(title, options) {
   try {
-    const response = await fetch('http://localhost:3000/api/optimize/title', {
+    const response = await fetch('/api/optimize/title', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

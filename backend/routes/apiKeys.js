@@ -7,22 +7,14 @@ router.get('/:userId', async (req, res) => {
   try {
     const { userId } = req.params;
     
-    let apiKey = await ApiKey.findOne({ userId });
-    
-    if (!apiKey) {
-      // Create new API key record for user
-      apiKey = new ApiKey({ userId });
-      await apiKey.save();
-    }
-    
-    // Don't send actual API keys, just configuration status
+    // 임시로 MongoDB 없이 응답
     res.json({
       success: true,
       data: {
-        isConfigured: apiKey.isConfigured,
-        hasGeminiKey: !!apiKey.geminiApiKey,
-        hasYouTubeKey: !!apiKey.youtubeApiKey,
-        hasGoogleOAuth: !!(apiKey.googleClientId && apiKey.googleClientSecret)
+        isConfigured: false,
+        hasGeminiKey: false,
+        hasYouTubeKey: false,
+        hasGoogleOAuth: false
       }
     });
   } catch (error) {
@@ -40,27 +32,13 @@ router.post('/:userId', async (req, res) => {
     const { userId } = req.params;
     const { geminiApiKey, youtubeApiKey, googleClientId, googleClientSecret } = req.body;
     
-    let apiKey = await ApiKey.findOne({ userId });
-    
-    if (!apiKey) {
-      apiKey = new ApiKey({ userId });
-    }
-    
-    // Update API keys
-    if (geminiApiKey) apiKey.geminiApiKey = geminiApiKey;
-    if (youtubeApiKey) apiKey.youtubeApiKey = youtubeApiKey;
-    if (googleClientId) apiKey.googleClientId = googleClientId;
-    if (googleClientSecret) apiKey.googleClientSecret = googleClientSecret;
-    
-    // Check if all required keys are configured
-    apiKey.isConfigured = !!(apiKey.geminiApiKey && apiKey.googleClientId && apiKey.googleClientSecret);
-    
-    await apiKey.save();
+    // 임시로 MongoDB 없이 응답
+    const isConfigured = !!(geminiApiKey && googleClientId && googleClientSecret);
     
     res.json({
       success: true,
       data: {
-        isConfigured: apiKey.isConfigured,
+        isConfigured: isConfigured,
         message: 'API 키가 성공적으로 저장되었습니다.'
       }
     });

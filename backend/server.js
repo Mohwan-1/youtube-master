@@ -84,10 +84,8 @@ app.use(session({
 // Rate limiting
 app.use('/api/', rateLimit);
 
-// Static files (for production)
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../frontend')));
-}
+// Static files (for development and production)
+app.use(express.static(path.join(__dirname, '../frontend')));
 
 // API Routes
 app.use('/api/auth', authRoutes);
@@ -107,11 +105,9 @@ app.get('/api/health', (req, res) => {
 });
 
 // Serve frontend for all other routes (SPA support)
-if (process.env.NODE_ENV === 'production') {
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../frontend/index.html'));
-  });
-}
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/index.html'));
+});
 
 // Error handling middleware
 app.use(errorHandler);
