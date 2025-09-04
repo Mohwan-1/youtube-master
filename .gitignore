@@ -104,3 +104,4 @@ logs
 
 # Claude AI files
 .claude/
+.vercel

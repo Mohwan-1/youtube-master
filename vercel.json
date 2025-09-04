@@ -1,6 +1,5 @@
 {
   "version": 2,
-  "name": "sdi-youtube-optimizer",
   "builds": [
     {
       "src": "index.html",
@@ -12,7 +11,5 @@
       "src": "/(.*)",
       "dest": "/index.html"
     }
-  ],
-  "functions": {},
-  "trailingSlash": false
+  ]
 }
