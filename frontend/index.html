@@ -69,7 +69,7 @@
                         </li>
                         <li class="nav-item">
                             <button class="nav-link btn btn-link" onclick="showApiSettings()">
-                                <i class="fas fa-key me-1"></i>API 설정
+                                <i class="fas fa-cog me-1"></i>개발자 설정
                             </button>
                         </li>
                     </ul>
@@ -499,11 +499,17 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">
-                        <i class="fas fa-key me-2"></i>API 설정
+                        <i class="fas fa-cog me-2"></i>개발자 설정 (관리자용)
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <strong>개발자 전용 설정</strong><br>
+                        일반 사용자는 Google 계정으로 로그인만 하면 됩니다. 이 설정은 개발자가 서비스 운영을 위해 사용합니다.
+                    </div>
+                    
                     <div class="api-status-section">
                         <h6 class="mb-3">API 상태</h6>
                         <div class="row">

@@ -2,6 +2,34 @@ const express = require('express');
 const router = express.Router();
 const ApiKey = require('../models/ApiKey');
 
+// GET default API keys (for regular users)
+router.get('/default', async (req, res) => {
+  try {
+    // 개발자가 환경변수에 설정한 기본 API 키들을 반환
+    const defaultKeys = {
+      geminiApiKey: process.env.DEFAULT_GEMINI_API_KEY || '',
+      youtubeApiKey: process.env.DEFAULT_YOUTUBE_API_KEY || '',
+      googleClientId: process.env.DEFAULT_GOOGLE_CLIENT_ID || '',
+      googleClientSecret: process.env.DEFAULT_GOOGLE_CLIENT_SECRET || '',
+      isConfigured: !!(process.env.DEFAULT_GEMINI_API_KEY && process.env.DEFAULT_YOUTUBE_API_KEY),
+      hasGeminiKey: !!(process.env.DEFAULT_GEMINI_API_KEY),
+      hasYouTubeKey: !!(process.env.DEFAULT_YOUTUBE_API_KEY),
+      hasGoogleOAuth: !!(process.env.DEFAULT_GOOGLE_CLIENT_ID && process.env.DEFAULT_GOOGLE_CLIENT_SECRET)
+    };
+
+    res.json({
+      success: true,
+      data: defaultKeys
+    });
+  } catch (error) {
+    console.error('Error getting default API keys:', error);
+    res.status(500).json({
+      success: false,
+      error: '기본 API 키를 가져오는 중 오류가 발생했습니다.'
+    });
+  }
+});
+
 // Get API keys for user
 router.get('/:userId', async (req, res) => {
   try {

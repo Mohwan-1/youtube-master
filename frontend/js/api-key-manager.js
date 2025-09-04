@@ -19,11 +19,38 @@ class ApiKeyManager {
   async init() {
     await this.loadApiKeys();
     this.updateStatusDisplay();
+    
+    // 개발자 모드가 아닌 경우 자동으로 기본 API 키 설정
+    if (!this.isDeveloperMode()) {
+      await this.setDefaultApiKeys();
+    }
+  }
+
+  isDeveloperMode() {
+    // URL에 developer=true 파라미터가 있거나 localStorage에 개발자 모드가 설정된 경우
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get('developer') === 'true' || localStorage.getItem('developer_mode') === 'true';
+  }
+
+  async setDefaultApiKeys() {
+    // 개발자가 미리 설정해둔 기본 API 키들을 사용
+    try {
+      const response = await fetch('http://localhost:3000/api/keys/default');
+      const data = await response.json();
+      
+      if (data.success) {
+        this.apiKeys = data.data;
+        this.updateStatusDisplay();
+        console.log('기본 API 키가 자동으로 설정되었습니다.');
+      }
+    } catch (error) {
+      console.log('기본 API 키 설정 실패, 개발자 설정이 필요할 수 있습니다.');
+    }
   }
 
   async loadApiKeys() {
     try {
-      const response = await fetch(`/api/keys/${this.userId}`);
+      const response = await fetch(`http://localhost:3000/api/keys/${this.userId}`);
       const data = await response.json();
       
       if (data.success) {
@@ -43,7 +70,7 @@ class ApiKeyManager {
     };
 
     try {
-      const response = await fetch(`/api/keys/${this.userId}`, {
+      const response = await fetch(`http://localhost:3000/api/keys/${this.userId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -101,7 +128,7 @@ class ApiKeyManager {
         return;
       }
 
-      const response = await fetch(`/api/keys/${this.userId}/test`, {
+      const response = await fetch(`http://localhost:3000/api/keys/${this.userId}/test`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -429,8 +456,14 @@ function callOptimizeAPI(endpoint, data) {
 // Check API configuration before making requests
 function checkApiConfiguration() {
   if (!apiKeyManager.isConfigured()) {
-    apiKeyManager.showToast('API 키가 설정되지 않았습니다. 설정 페이지에서 API 키를 입력해주세요.', 'warning');
-    showApiSettings();
+    // 사용자 친화적인 메시지
+    const message = '서비스 준비 중입니다. 잠시 후 다시 시도해주세요.';
+    apiKeyManager.showToast(message, 'warning');
+    
+    // 개발자 모드가 아닌 경우에만 설정 모달 표시
+    if (apiKeyManager.isDeveloperMode()) {
+      showApiSettings();
+    }
     return false;
   }
   return true;
