@@ -65,3 +65,6 @@
 {"level":"info","message":"Environment: development","service":"youtube-optimizer","timestamp":"2025-09-04T06:27:08.975Z"}
 {"level":"info","message":"Health check: http://localhost:3000/api/health","service":"youtube-optimizer","timestamp":"2025-09-04T06:27:08.975Z"}
 {"level":"info","message":"::ffff:127.0.0.1 - - [04/Sep/2025:06:27:19 +0000] \"GET /api/keys/user_1756964558773_989sx1nb7 HTTP/1.1\" 500 50 \"http://127.0.0.1:5500/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36\"","service":"youtube-optimizer","timestamp":"2025-09-04T06:27:19.054Z"}
+{"level":"info","message":"Server running on port 3000","service":"youtube-optimizer","timestamp":"2025-09-04T06:29:57.940Z"}
+{"level":"info","message":"Environment: development","service":"youtube-optimizer","timestamp":"2025-09-04T06:29:57.942Z"}
+{"level":"info","message":"Health check: http://localhost:3000/api/health","service":"youtube-optimizer","timestamp":"2025-09-04T06:29:57.943Z"}
