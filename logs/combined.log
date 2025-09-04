@@ -40,3 +40,28 @@
 {"level":"info","message":"Server running on port 3000","service":"youtube-optimizer","timestamp":"2025-09-04T06:07:19.073Z"}
 {"level":"info","message":"Environment: development","service":"youtube-optimizer","timestamp":"2025-09-04T06:07:19.075Z"}
 {"level":"info","message":"Health check: http://localhost:3000/api/health","service":"youtube-optimizer","timestamp":"2025-09-04T06:07:19.075Z"}
+{"level":"info","message":"Server running on port 3000","service":"youtube-optimizer","timestamp":"2025-09-04T06:26:16.908Z"}
+{"level":"info","message":"Environment: development","service":"youtube-optimizer","timestamp":"2025-09-04T06:26:16.910Z"}
+{"level":"info","message":"Health check: http://localhost:3000/api/health","service":"youtube-optimizer","timestamp":"2025-09-04T06:26:16.911Z"}
+{"level":"info","message":"Server running on port 3000","service":"youtube-optimizer","timestamp":"2025-09-04T06:26:36.084Z"}
+{"level":"info","message":"Environment: development","service":"youtube-optimizer","timestamp":"2025-09-04T06:26:36.086Z"}
+{"level":"info","message":"Health check: http://localhost:3000/api/health","service":"youtube-optimizer","timestamp":"2025-09-04T06:26:36.086Z"}
+{"level":"info","message":"Server running on port 3000","service":"youtube-optimizer","timestamp":"2025-09-04T06:26:42.634Z"}
+{"level":"info","message":"Environment: development","service":"youtube-optimizer","timestamp":"2025-09-04T06:26:42.636Z"}
+{"level":"info","message":"Health check: http://localhost:3000/api/health","service":"youtube-optimizer","timestamp":"2025-09-04T06:26:42.636Z"}
+{"level":"info","message":"::1 - - [04/Sep/2025:06:26:44 +0000] \"GET /api/keys/user_1756964558773_989sx1nb7 HTTP/1.1\" - - \"http://127.0.0.1:5500/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36\"","service":"youtube-optimizer","timestamp":"2025-09-04T06:26:44.636Z"}
+{"level":"info","message":"Server running on port 3000","service":"youtube-optimizer","timestamp":"2025-09-04T06:26:46.197Z"}
+{"level":"info","message":"Environment: development","service":"youtube-optimizer","timestamp":"2025-09-04T06:26:46.199Z"}
+{"level":"info","message":"Health check: http://localhost:3000/api/health","service":"youtube-optimizer","timestamp":"2025-09-04T06:26:46.199Z"}
+{"level":"info","message":"::1 - - [04/Sep/2025:06:26:53 +0000] \"GET /api/keys/user_1756964558773_989sx1nb7 HTTP/1.1\" - - \"http://127.0.0.1:5500/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36\"","service":"youtube-optimizer","timestamp":"2025-09-04T06:26:53.212Z"}
+{"level":"info","message":"Server running on port 3000","service":"youtube-optimizer","timestamp":"2025-09-04T06:26:56.404Z"}
+{"level":"info","message":"Environment: development","service":"youtube-optimizer","timestamp":"2025-09-04T06:26:56.406Z"}
+{"level":"info","message":"Health check: http://localhost:3000/api/health","service":"youtube-optimizer","timestamp":"2025-09-04T06:26:56.406Z"}
+{"level":"info","message":"Server running on port 3000","service":"youtube-optimizer","timestamp":"2025-09-04T06:27:01.220Z"}
+{"level":"info","message":"Environment: development","service":"youtube-optimizer","timestamp":"2025-09-04T06:27:01.222Z"}
+{"level":"info","message":"Health check: http://localhost:3000/api/health","service":"youtube-optimizer","timestamp":"2025-09-04T06:27:01.223Z"}
+{"level":"info","message":"::1 - - [04/Sep/2025:06:27:07 +0000] \"GET /api/keys/user_1756964558773_989sx1nb7 HTTP/1.1\" - - \"http://127.0.0.1:5500/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36\"","service":"youtube-optimizer","timestamp":"2025-09-04T06:27:07.263Z"}
+{"level":"info","message":"Server running on port 3000","service":"youtube-optimizer","timestamp":"2025-09-04T06:27:08.973Z"}
+{"level":"info","message":"Environment: development","service":"youtube-optimizer","timestamp":"2025-09-04T06:27:08.975Z"}
+{"level":"info","message":"Health check: http://localhost:3000/api/health","service":"youtube-optimizer","timestamp":"2025-09-04T06:27:08.975Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [04/Sep/2025:06:27:19 +0000] \"GET /api/keys/user_1756964558773_989sx1nb7 HTTP/1.1\" 500 50 \"http://127.0.0.1:5500/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36\"","service":"youtube-optimizer","timestamp":"2025-09-04T06:27:19.054Z"}

@@ -23,7 +23,7 @@ class ApiKeyManager {
 
   async loadApiKeys() {
     try {
-      const response = await fetch(`/api/keys/${this.userId}`);
+      const response = await fetch(`http://localhost:3000/api/keys/${this.userId}`);
       const data = await response.json();
       
       if (data.success) {
@@ -43,7 +43,7 @@ class ApiKeyManager {
     };
 
     try {
-      const response = await fetch(`/api/keys/${this.userId}`, {
+      const response = await fetch(`http://localhost:3000/api/keys/${this.userId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -101,7 +101,7 @@ class ApiKeyManager {
         return;
       }
 
-      const response = await fetch(`/api/keys/${this.userId}/test`, {
+      const response = await fetch(`http://localhost:3000/api/keys/${this.userId}/test`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
